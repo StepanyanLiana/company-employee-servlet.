@@ -11,16 +11,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/createEmployee")
 
 public class CreateEmployeeServlet extends HttpServlet {
     private EmployeeManager employeeManager = new EmployeeManager();
         private CompanyManager companyManager = new CompanyManager();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        List<Company> all = companyManager.getAll();
+       List<Integer> companyId = new ArrayList<>();
+        for (Company company : all) {
+            companyId.add(company.getId());
+        }
+        req.setAttribute("companiesList", companyId);
         req.getRequestDispatcher("WEB-INF/createEmployee.jsp").forward(req, resp);
+
     }
 
     @Override

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/updateEmployee")
 public class UpdateEmployeeServlet extends HttpServlet {
@@ -19,6 +21,13 @@ public class UpdateEmployeeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Company> all = companyManager.getAll();
+        List<Integer> companyId = new ArrayList<>();
+        for (Company company : all) {
+            companyId.add(company.getId());
+        }
+        req.setAttribute("companiesList", companyId);
+
         int id = Integer.parseInt(req.getParameter("id"));
         Employee employee = employeeManager.getById(id);
         req.setAttribute("employee", employee);

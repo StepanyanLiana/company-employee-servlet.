@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.example.companyemployeeservlet.model.Company" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.companyemployeeservlet.model.Employee" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 23.04.2023
@@ -9,6 +11,7 @@
 <html>
 <head>
     <title>Create Employee</title>
+    <% List<Integer> companyList = (List<Integer>) request.getAttribute("companiesList");%>
 </head>
 <body>
 <a href="/employees"> Back</a>
@@ -17,7 +20,11 @@
     name: <input type="text" name="name"><br>
     surname: <input type="text" name="surname"><br>
     email: <input type="email" name="email"><br>
-    company_id: <input type="text" name="company_id">><br>
+    company_id: <select name="company_id">
+    <% for (Integer company : companyList) {%>
+    <option value="<%=company%>"><%=company%></option>
+        <%}%>
+</select><br>
     <input type="submit" value="create">
 </form>
 </body>
