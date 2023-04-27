@@ -8,11 +8,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Main page</title>
 </head>
 <body>
-<h1>Company Employee</h1><br>
-<a href="/companies">Companies</a>
-<a href="/employees">Employees</a>
+<%
+    if (session.getAttribute("user") != null) {
+        response.sendRedirect("/home");
+    }
+    String msg = (String) session.getAttribute("msg");
+%>
+<% if (msg != null) {%>
+<span style="color: red"><%=msg%></span><br>
+<%session.removeAttribute("msg");
+}%>
+login:
+<form action="/login" method="post">
+   email: <input name="email" type="text"><br>
+  password:  <input name="password" type="password"><br>
+    <input type="submit" value="login">
+</form>
+<a href="/register.jsp">Register</a>
 </body>
 </html>

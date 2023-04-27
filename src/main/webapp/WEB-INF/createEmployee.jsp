@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>Create Employee</title>
-    <% List<Integer> companyList = (List<Integer>) request.getAttribute("companiesList");%>
+    <% List<Company> companyList = (List<Company>) request.getAttribute("companiesList");%>
 </head>
 <body>
 <a href="/employees"> Back</a>
@@ -20,9 +20,9 @@
     name: <input type="text" name="name"><br>
     surname: <input type="text" name="surname"><br>
     email: <input type="email" name="email"><br>
-    company_id: <select name="company_id">
-    <% for (Integer company : companyList) {%>
-    <option value="<%=company%>"><%=company%></option>
+    company: <select name="company_id">
+    <% for (Company company : companyList) {%>
+    <option value="<%=company.getId()%>"><%=company.getName()%><%=company.getCountry()%></option>
         <%}%>
 </select><br>
     <input type="submit" value="create">

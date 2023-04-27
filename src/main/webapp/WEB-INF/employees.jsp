@@ -1,5 +1,7 @@
 <%@ page import="com.example.companyemployeeservlet.model.Employee" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.companyemployeeservlet.model.User" %>
+<%@ page import="com.example.companyemployeeservlet.model.UserType" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 23.04.2023
@@ -11,7 +13,9 @@
 <head>
     <title>Employees</title>
 </head>
-<%List<Employee> employees = (List<Employee>) request.getAttribute("employees");%>
+<%List<Employee> employees = (List<Employee>) request.getAttribute("employees");
+    User user = (User) session.getAttribute("user");
+%>
 <body>
 <h2>Employees</h2><a href="/createEmployee">Create Employee</a>
 <table border="1">
@@ -21,8 +25,10 @@
         <th>surname</th>
         <th>email</th>
         <th>company_id</th>
+        <%
+            if (user.getUserType() == UserType.ADMIN) {%>
         <th>action</th>
-
+<%}%>
     </tr>
     <% if (employees != null && !employees.isEmpty()) { %>
     <%
@@ -33,8 +39,11 @@
         <td><%=employee.getSurname()%></td>
         <td><%=employee.getEmail()%></td>
         <td><%=employee.getCompany().getId()%></td>
+        <%
+            if (user.getUserType() == UserType.ADMIN) {%>
         <td><a href="/removeEmployee?id=<%=employee.getId()%>">delete</a>
             / <a href="updateEmployee?id=<%=employee.getId()%>"> update</a></td>
+        <%}%>
     </tr>
     <%} %>
     <%} %>

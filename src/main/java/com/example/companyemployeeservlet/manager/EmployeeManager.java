@@ -91,6 +91,8 @@ public class EmployeeManager {
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getSurname());
             ps.setString(3, employee.getEmail());
+            ps.setInt(4, employee.getCompany().getId());
+            ps.setInt(5, employee.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
